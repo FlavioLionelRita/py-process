@@ -411,7 +411,7 @@ class Process(metaclass=Singleton):
     def addInstanceFactory(self,key:str,factory:ProcessInstanceFactory):
         self._instanceFactory[key] = factory(self.tokenManager,self.exp) 
 
-    def AddSpec(self,key:str,spec:dict)-> ProcessSpec:
+    def addSpec(self,key:str,spec:dict)-> ProcessSpec:
         processSpec =self.parse(key,spec)
         self._specs[key] =processSpec
         return processSpec      
@@ -421,6 +421,9 @@ class Process(metaclass=Singleton):
         kind =spec['kind']
         if kind not in self._parsers: raise ProcessError('not found parser kind :'+kind) 
         return self._parsers[kind].parse(spec)
+
+    def getSpec(self,key:str)-> ProcessSpec:
+        return self._specs[key] if key in self._specs else None 
     
     def createInstance(self,spec:ProcessSpec,context:dict,parent=None)-> ProcessInstance:
         if spec.kind not in self._instanceFactory: raise ProcessError('not found instance factory kind :'+spec.kind) 

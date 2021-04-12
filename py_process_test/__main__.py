@@ -11,7 +11,7 @@ def loadConfig(path):
             data = yaml.safe_load(stream)
             _keys=data['Process']
             for _key in _keys:
-                process.AddSpec(_key,_keys[_key]) 
+                process.addSpec(_key,_keys[_key]) 
         except yaml.YAMLError as exc:
             print(exc)
         except Exception as ex:
