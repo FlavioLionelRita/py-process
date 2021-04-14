@@ -118,11 +118,13 @@ class BpmParser(ProcessParser):
         for p in process.input:
             var = Object
             var.type=p.type
+            var.isInput = True
             var.bind = True if p.name in process.bind else False
             vars[p.name]=var        
         for p in process.declare:
             var = Object
             var.type=p.type
+            var.isInput = False
             var.bind = True if p.name in process.bind else False
             vars[p.name]=var
         return vars
